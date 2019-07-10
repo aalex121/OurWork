@@ -1,0 +1,33 @@
+﻿@model OurWork.Models.UserData
+
+@using (Html.BeginForm((string)ViewData["FormAction"], "UserData"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.SecondName)
+                @Html.TextBoxFor(m => m.SecondName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Phone)
+                @Html.TextBoxFor(m => m.Phone)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.BirthDate)
+                @Html.TextBoxFor(m => m.BirthDate)
+            </li>
+        </ol>
+        <input type="submit" value="Save" />
+    </fieldset>
+}

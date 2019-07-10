@@ -1,0 +1,18 @@
+﻿@model OurWork.Models.UserData
+@{
+    ViewBag.Title = "Index";
+    ViewDataDictionary partialViewData = new ViewDataDictionary();
+    partialViewData.Add("FormAction", ViewBag.FormAction);
+}
+
+<h2>Your Personal Data</h2>
+
+@if (ViewBag.CurrentUser.RoleId == 1)
+{
+    @Html.Partial("_ApplicantDataPartial", model: Model, viewData: partialViewData)
+}
+
+@if (ViewBag.CurrentUser.RoleId == 2)
+{
+    @Html.Partial("_CompanyDataPartial", model: Model, viewData: partialViewData)
+}
