@@ -1,0 +1,25 @@
+﻿@model OurWork.Models.UserData
+
+@{
+    ViewBag.Title = "ShowUserData";
+}
+
+<h2>@Model.FirstName @Model.SecondName</h2>
+<table class="table table-striped">
+    <tr>
+        <td>
+            Phone:
+        </td>
+        <td>
+            @Model.Phone
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Email:
+        </td>
+        <td>
+            @Model.Email
+        </td>
+    </tr>
+</table>

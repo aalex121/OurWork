@@ -76,49 +76,29 @@ namespace OurWork.Controllers
             return View(jobOffers);
         }
 
-        public ActionResult SearchApplicants()
+
+        //TODO Get Job offer id as an input parameter for search
+        public ActionResult SearchApplicants(int offerId = 1)
         {
             UserProfile currentUser = GetCurrentUser();
-
-            //TODO Get Job offer id as an input parameter for search
-
-            DataContext context = new DataContext();
-
-            int offerId = 1;
+            DataContext context = new DataContext();            
 
             JobOffers currentOffer = context.JobOffers.Find(offerId);
             Professions currentProfession = context.Professions.Where(p => p.Id == currentOffer.ProfessionId).FirstOrDefault();
 
-            var desiredSkills = context.AblitySets.Join(context.Abilities,
-                                    aset => aset.AbilitiesId,
-                                    abil => abil.Id,
-                                    (aset, abil) => new
-                                    {
-                                        SkillId = abil.SkillId,
-                                        LevelId = abil.SkillLevelId,
-                                        SetId = aset.Id
-                                    }).
-                                    Where(r => r.SetId == currentProfession.AbilitySetId).
-                                    Select(r => new { SkillId = r.SkillId, SkillLevelId = r.LevelId }).
-                                    FirstOrDefault();
+            List<JobAppliances> matchingAppliances = FindMatchingAppliances(currentProfession, context);
 
-            var userAbilitySets = context.AblitySets.Where(aset => aset.ApplianceId != null && aset.ApplianceId > 0);
+            List<ApplicantSearchResults> results = matchingAppliances.Join(context.UserData,
+                                            appl => appl.UserId,
+                                            udata => udata.UserId,
+                                            (appl, udata) => new ApplicantSearchResults
+                                            {
+                                                Appliance = appl,
+                                                Applicant = udata
+                                            }
+                                            ).ToList();
 
-            var matchingApplianceIds = userAbilitySets.Join(context.Abilities,
-                                    aset => aset.AbilitiesId,
-                                    abil => abil.Id,
-                                    (aset, abil) => new
-                                    {
-                                        SkillId = abil.SkillId,
-                                        LevelId = abil.SkillLevelId,                                        
-                                        ApplianceId = aset.ApplianceId
-                                    }).
-                                    Where(r => r.SkillId == desiredSkills.SkillId && r.LevelId == desiredSkills.SkillLevelId).
-                                    Select(r => r.ApplianceId).
-                                    ToList();
-                
-            
-            return View();
+            return View(results);
         }
 
 
@@ -173,6 +153,41 @@ namespace OurWork.Controllers
                                             ToList();
 
             return matchingJobOffers;     
+        }
+
+        private List<JobAppliances> FindMatchingAppliances(Professions currentProfession, DataContext context)
+        {
+            var desiredSkills = context.AblitySets.Join(context.Abilities,
+                                    aset => aset.AbilitiesId,
+                                    abil => abil.Id,
+                                    (aset, abil) => new
+                                    {
+                                        SkillId = abil.SkillId,
+                                        LevelId = abil.SkillLevelId,
+                                        SetId = aset.Id
+                                    }).
+                                    Where(r => r.SetId == currentProfession.AbilitySetId).
+                                    Select(r => new { SkillId = r.SkillId, SkillLevelId = r.LevelId }).
+                                    FirstOrDefault();
+
+            var userAbilitySets = context.AblitySets.Where(aset => aset.ApplianceId != null && aset.ApplianceId > 0);
+
+            List<int> matchingApplianceIds = userAbilitySets.Join(context.Abilities,
+                                    aset => aset.AbilitiesId,
+                                    abil => abil.Id,
+                                    (aset, abil) => new
+                                    {
+                                        SkillId = abil.SkillId,
+                                        LevelId = abil.SkillLevelId,
+                                        ApplianceId = aset.ApplianceId
+                                    }).
+                                    Where(r => r.SkillId == desiredSkills.SkillId && r.LevelId == desiredSkills.SkillLevelId).
+                                    Select(r => r.ApplianceId).
+                                    ToList();
+
+            List<JobAppliances> matchingAppliances = context.JobApplicances.Where(a => matchingApplianceIds.Contains(a.Id)).ToList();
+
+            return matchingAppliances;
         }
 
     }

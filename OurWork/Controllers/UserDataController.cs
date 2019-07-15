@@ -40,6 +40,14 @@ namespace OurWork.Controllers
             return View(currentUserData);
         }
 
+        [HttpGet]
+        public ActionResult ShowUserData(int id)
+        {
+            UserData currentUserData = _userDataRepository.GetByUserId(id);
+
+            return View(currentUserData);
+        }
+
         [HttpPost]
         public ActionResult SetUserData(UserData data)
         {

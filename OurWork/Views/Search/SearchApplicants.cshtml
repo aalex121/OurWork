@@ -1,5 +1,37 @@
-﻿@{
+﻿@using OurWork.Models
+@model List<ApplicantSearchResults>           
+@{
     ViewBag.Title = "SearchApplicants";
 }
 
-<h2>SearchApplicants</h2>
+<h2>Applicant search results</h2>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Appliance</th>
+                <th>Applicant Name</th>
+                <th>Applicant Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ApplicantSearchResults result in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="/UserData/ShowUserData/@result.Applicant.UserId">
+                            @result.Appliance.Name
+                        </a>                        
+                    </td>
+                    <td>
+                        @result.Applicant.FirstName @result.Applicant.SecondName
+                    </td>
+                    <td>
+                        @result.Applicant.Phone
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
