@@ -56,5 +56,10 @@ namespace OurWork.Repository
         }
 
         #endregion
+
+        public IEnumerable<SkillLevels> GetSkillLevels()
+        {
+            return _context.SkillLevels;
+        }
     }
 }

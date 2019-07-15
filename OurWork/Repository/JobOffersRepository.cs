@@ -31,7 +31,7 @@ namespace OurWork.Repository
 
         public bool Create(JobOffers newOffer)
         {
-            if (!CheckUser(newOffer))
+            if (!CheckUserAndProfession(newOffer))
             {
                 return false;
             }
@@ -43,7 +43,7 @@ namespace OurWork.Repository
 
         public bool Update(JobOffers offer)
         {
-            if (!CheckUser(offer))
+            if (!CheckUserAndProfession(offer))
             {
                 return false;
             }
@@ -70,14 +70,16 @@ namespace OurWork.Repository
 
         #endregion
 
-        private bool CheckUser(JobOffers offer)
+        private bool CheckUserAndProfession(JobOffers offer)
         {
-            if (offer.Id < 1 || _context.UserProfiles.Find(offer.UserId) == null)
+            bool fOk = offer.UserId >= 1 && _context.UserProfiles.Find(offer.UserId) != null;
+
+            if (fOk)
             {
-                return false;
+                fOk = offer.ProfessionId >= 1 && _context.Professions.Find(offer.ProfessionId) != null;
             }
 
-            return true;
+            return fOk;
         }
         
     }

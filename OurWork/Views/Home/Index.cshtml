@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using OurWork.Enums
+@{
+    ViewBag.Title = "Home Page";    
 }
 @section featured {
     <section class="featured">
@@ -43,3 +44,27 @@
         <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
     </li>
 </ol>
+<div class="row">
+    <div class="col-lg-6">
+        <a href="/search/">Search</a>
+    </div>
+    <div class="col-lg-6">
+        @if (ViewBag.User != null)
+        {
+            int userRole = ViewBag.User.RoleId;
+            
+            switch (userRole)
+            {                
+                case (int)UserRoleTypes.Applicant:
+                    <a href="/Appliance/Index">My Appliances</a>
+                    break;
+                case (int)UserRoleTypes.Company:
+                    break;
+                case (int)UserRoleTypes.Admin:
+                    break;
+                default:
+                    break;
+            }
+        }
+    </div>
+</div>

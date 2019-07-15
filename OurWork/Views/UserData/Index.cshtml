@@ -1,4 +1,5 @@
 ﻿@model OurWork.Models.UserData
+@using OurWork.Enums
 @{
     ViewBag.Title = "Index";
     ViewDataDictionary partialViewData = new ViewDataDictionary();
@@ -7,12 +8,12 @@
 
 <h2>Your Personal Data</h2>
 
-@if (ViewBag.CurrentUser.RoleId == 1)
+@if (ViewBag.CurrentUser.RoleId == (int)UserRoleTypes.Applicant)
 {
     @Html.Partial("_ApplicantDataPartial", model: Model, viewData: partialViewData)
 }
 
-@if (ViewBag.CurrentUser.RoleId == 2)
+@if (ViewBag.CurrentUser.RoleId == (int)UserRoleTypes.Company)
 {
     @Html.Partial("_CompanyDataPartial", model: Model, viewData: partialViewData)
 }

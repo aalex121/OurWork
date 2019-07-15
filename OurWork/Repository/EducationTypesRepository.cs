@@ -4,55 +4,49 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using WebMatrix.WebData;
 
 namespace OurWork.Repository
 {
-    public class UserRepository : IRepository<UserProfile>
+    public class EducationTypesRepository : IRepository<EducationTypes>
     {
         private readonly DataContext _context;
 
-        public UserRepository()
+        public EducationTypesRepository()
         {
             _context = new DataContext();
         }
 
         #region Basic CRUD operations
 
-        public IEnumerable<UserProfile> GetAll()
+        public IEnumerable<EducationTypes> GetAll()
         {
-            return _context.UserProfiles;
+            return _context.EducationTypes;
         }
 
-        public UserProfile GetById(int id)
+        public EducationTypes GetById(int id)
         {
-            return _context.UserProfiles.Find(id);
+            return _context.EducationTypes.Find(id);
         }
 
-        public UserProfile GetByName(string name)
+        public bool Create(EducationTypes newUser)
         {
-            return _context.UserProfiles.Where(u => u.UserName == name).FirstOrDefault();
-        }
-
-        public bool Create(UserProfile newUser)
-        {
-            if (!CheckRole(newUser))
+            if (!CheckEducationTypesId(newUser))
             {
                 return false;
             }
-            
-            _context.UserProfiles.Add(newUser);
+
+            _context.EducationTypes.Add(newUser);
 
             return true;
         }
 
-        public bool Update(UserProfile user)
+        public bool Update(EducationTypes user)
         {
-            if (!CheckRole(user))
+            if (!CheckEducationTypesId(user))
             {
                 return false;
             }
-            
+
             _context.Entry(user).State = EntityState.Modified;
 
             return true;
@@ -60,11 +54,11 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            UserProfile user = _context.UserProfiles.Find(id);
+            EducationTypes user = _context.EducationTypes.Find(id);
 
             if (user != null)
             {
-                _context.UserProfiles.Remove(user);
+                _context.EducationTypes.Remove(user);
             }
         }
 
@@ -75,15 +69,15 @@ namespace OurWork.Repository
 
         #endregion
 
-        private bool CheckRole(UserProfile user)
+        private bool CheckEducationTypesId(EducationTypes user)
         {
-            if (user.RoleId < 1 || _context.UserRoles.Find(user.RoleId) == null)
+            if (user.Id < 1 || _context.EducationTypes.Find(user.Id) == null)
             {
                 return false;
             }
 
             return true;
         }
-        
+
     }
 }

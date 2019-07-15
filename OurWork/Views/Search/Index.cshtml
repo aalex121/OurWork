@@ -1,0 +1,20 @@
+﻿@using OurWork.Enums
+@{
+    ViewBag.Title = "Index";
+    UserRoleTypes currentUserRole = ViewBag.CurrentUserRole;
+}
+
+<h2>Search</h2>
+@switch (currentUserRole)
+{
+    case UserRoleTypes.None:
+        break;
+    case UserRoleTypes.Applicant:
+        break;
+    case UserRoleTypes.Company:
+        break;
+    case UserRoleTypes.Admin:
+        break;
+    default:
+        break;
+}

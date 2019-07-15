@@ -1,0 +1,44 @@
+﻿@model OurWork.Models.CreateApplianceModel
+@using OurWork.Models
+
+@{
+    ViewBag.Title = "NewAppliance";
+    List<SelectListItem> skills = ViewBag.Skills;
+    List<SelectListItem> skillLevels = ViewBag.SkillLevels;
+}
+
+<h2>New Appliance</h2>
+
+@using (Html.BeginForm("CreateAppliance", "Appliance"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <ol>
+            <li>
+                <h3>Appliance Info</h3>
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ApplianceData.Name)
+                @Html.TextBoxFor(m => m.ApplianceData.Name)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ApplianceData.Comment)
+                @Html.TextAreaFor(m => m.ApplianceData.Comment)
+            </li>
+            <li>
+                <h3>Select Abilities</h3>
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ApplianceAbilities.SkillId)
+                @Html.DropDownListFor(m => m.ApplianceAbilities.SkillId, skills)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ApplianceAbilities.SkillLevelId)
+                @Html.DropDownListFor(m => m.ApplianceAbilities.SkillLevelId, skillLevels)
+            </li>            
+        </ol>
+        <input type="submit" value="Create" />
+    </fieldset>
+}

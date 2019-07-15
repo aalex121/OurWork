@@ -40,10 +40,10 @@ namespace OurWork.Repository
 
         public bool Update(AbilitySets record)
         {
-            if (!CheckAppliance(record))
-            {
-                return false;
-            }
+            //if (!CheckAppliance(record))
+            //{
+            //    return false;
+            //}
 
             _context.Entry(record).State = EntityState.Modified;
 

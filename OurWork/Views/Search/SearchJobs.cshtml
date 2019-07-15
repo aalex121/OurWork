@@ -1,0 +1,15 @@
+﻿@model List<OurWork.Models.JobOffers>
+@using OurWork.Models
+@{
+    ViewBag.Title = "SearchJobs";
+}
+
+<h2>SearchJobs</h2>
+@foreach (JobOffers offer in Model)
+{
+    <div>
+        <h4>
+            @offer.OfferName
+        </h4>
+    </div>
+}
