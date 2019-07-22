@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Globalization;
@@ -8,17 +6,19 @@ using System.Web.Security;
 
 namespace OurWork.Models
 {
-    [Table("SkillLevels")]
-    public class SkillLevels
+    [Table("JobAppliances")]
+    public class JobAppliance
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int Value { get; set; }
+        public int UserId { get; set; }
 
-        public string ValueName { get; set; }
+        public string Name { get; set; }
 
-        public List<Abilities> Abilities { get; set; }
+        public string Comment { get; set; }
+
+        public UserProfile User { get; set; }        
     }
 }

@@ -1,0 +1,36 @@
+﻿@using OurWork.Models
+@model OurWork.Models.JobOffer
+
+@{
+    ViewBag.Title = "Index";
+    List<SelectListItem> professions = ViewBag.Professions;
+}
+
+<h2>Index</h2>
+<div>
+    <h3>Vacancy addition form</h3>
+    @using (Html.BeginForm("CreateVacancy", "CreateVacancy"))
+    {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+        <div class="form-group">
+            @Html.LabelFor(m => m.OfferName)
+            @Html.TextBoxFor(m => m.OfferName, htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ProfessionId)
+            @Html.DropDownListFor(m => m.ProfessionId, professions, htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.OfferDescription)
+            @Html.TextAreaFor(m => m.OfferDescription, htmlAttributes: new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Save" class=""/>    
+    }
+
+</div>
+<div class="bottom-section">
+    @Html.ActionLink("Add Profession", "NewProfession", "CreateVacancy",
+        routeValues: null,
+        htmlAttributes: new { @class = "btn btn-primary btn-large" })
+</div>

@@ -8,7 +8,7 @@ using OurWork.Models;
 
 namespace OurWork.Repository
 {
-    public class ProfessionsRepository : IRepository<Professions>
+    public class ProfessionsRepository : IRepository<Profession>
     {
         private readonly DataContext _context;
 
@@ -19,17 +19,17 @@ namespace OurWork.Repository
 
         #region Basic CRUD operations
 
-        public IEnumerable<Professions> GetAll()
+        public IEnumerable<Profession> GetAll()
         {
             return _context.Professions;
         }
 
-        public Professions GetById(int id)
+        public Profession GetById(int id)
         {
             return _context.Professions.Find(id);
         }
 
-        public bool Create(Professions newProfession)
+        public bool Create(Profession newProfession)
         {
             if (!CheckAbilitySet(newProfession))
             {
@@ -41,7 +41,7 @@ namespace OurWork.Repository
             return true;
         }
 
-        public bool Update(Professions profession)
+        public bool Update(Profession profession)
         {
             if (!CheckAbilitySet(profession))
             {
@@ -55,7 +55,7 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            Professions profession = _context.Professions.Find(id);
+            Profession profession = _context.Professions.Find(id);
 
             if (profession != null)
             {
@@ -70,14 +70,9 @@ namespace OurWork.Repository
 
         #endregion
 
-        private bool CheckAbilitySet(Professions profession)
+        private bool CheckAbilitySet(Profession profession)
         {
-            if (profession.Id < 1 || _context.AblitySets.Find(profession.AbilitySetId) == null) 
-            {
-                return false;
-            }
-
-            return true;
+            return profession.AbilitySetId > 1 && _context.AblitySets.Find(profession.AbilitySetId) != null;
         }
 
     }

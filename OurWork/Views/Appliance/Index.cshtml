@@ -1,21 +1,51 @@
 ﻿@using OurWork.Models
-@model IEnumerable<OurWork.Models.JobAppliances>
+@model IEnumerable<OurWork.Models.JobAppliance>
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>My appliances</h2>
+<div class="row">
+    <div class="p-3">
+        <h2>My appliances</h2>
+    </div>
+    <div class="p-4">
+        @Html.ActionLink("Add Appliance", "NewAppliance", "Appliance",
+                routeValues: null,
+                htmlAttributes: new { @class = "btn btn-success btn-large" })
+    </div>
+</div>
+
 
 @if (Model.Any())
 {
-    foreach (JobAppliances item in Model)
-    {
-        <div class="col-lg-12">
-           <h4>
-               @item.Name
-           </h4> 
-        </div>
-    }
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                    
+                </th>
+                <th>
+                    Comment
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (JobAppliance item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Comment
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    
+    
 }
 
-<a href="/Appliance/NewAppliance">New Appliance</a>

@@ -17,9 +17,9 @@ namespace OurWork.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         public int RoleId { get; set; }
-        public UserRoles Role { get; set; }
+        public UserRole Role { get; set; }
         //public UserData UserData { get; set; }
-        public List<JobAppliances> JobAppliances { get; set; }
-        public List<JobOffers> JobOffers { get; set; }
+        public List<JobAppliance> JobAppliances { get; set; }
+        public List<JobOffer> JobOffers { get; set; }
     }
 }

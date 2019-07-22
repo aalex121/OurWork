@@ -73,7 +73,7 @@ namespace OurWork.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            IEnumerable<UserRoles> userRoles = _dataContext.UserRoles;
+            IEnumerable<UserRole> userRoles = _dataContext.UserRoles;
             ViewBag.UserRoles = userRoles;
 
             return View();

@@ -7,7 +7,7 @@ namespace OurWork.Models
 {
     public class ApplicantSearchResults
     {
-        public JobAppliances Appliance { get; set; }
+        public JobAppliance Appliance { get; set; }
 
         public UserData Applicant { get; set; }
     }

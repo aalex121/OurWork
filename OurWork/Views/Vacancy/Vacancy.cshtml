@@ -1,0 +1,38 @@
+﻿@using OurWork.Enums
+@using OurWork.Models
+@model OurWork.Models.JobOffer
+
+@{
+    ViewBag.Title = "Vacancy";
+    UserProfile currentUser = ViewBag.CurrentUser;
+    UserData companyData = ViewBag.CompanyData;
+}
+
+<div class="card">
+    <div class="card-header">
+        Vacancy: <strong>@Model.OfferName</strong>
+    </div>
+    <div class="card-header">
+        Company: <strong>@companyData.CompanyName</strong>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Vacancy Info</h5>
+        <p class="card-text">@Model.OfferDescription</p>
+
+        @if (currentUser.UserId != companyData.UserId)
+        {
+            <h5 class="card-title">Contacts</h5>
+            <p class="card-text">Phone: @companyData.Phone</p>
+            <p class="card-text">Email: @companyData.Email</p>
+        }    
+    </div>
+</div>
+
+<div class="bottom-section">
+    @if (currentUser.RoleId == (int)UserRoleTypes.Company)
+    {
+        @Html.ActionLink("Search Applicants", "SearchApplicants", "Search",
+        routeValues: new { id = Model.Id },
+        htmlAttributes: new { @class = "btn btn-success btn-large" })
+    }    
+</div>

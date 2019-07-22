@@ -14,6 +14,7 @@ namespace OurWork.Controllers
 {
     public class ApplianceController : Controller
     {
+        private const int DEFAULT_APPLIANCE_ABILITIES = 2;
         private readonly JobAppliancesRepository _appRepository;
         private readonly UserRepository _userRepository;
         private readonly SkillsRepository _skillsRepository;
@@ -40,7 +41,7 @@ namespace OurWork.Controllers
                 return Redirect("/Home/Index");
             }
 
-            IEnumerable<JobAppliances> userAppliances = _appRepository.GetByUserId(currentUser.UserId);
+            IEnumerable<JobAppliance> userAppliances = _appRepository.GetByUserId(currentUser.UserId);
 
             return View(userAppliances);
         }
@@ -68,6 +69,12 @@ namespace OurWork.Controllers
 
             CreateApplianceModel dataModel = new CreateApplianceModel();
 
+            for (int i = 0; i < DEFAULT_APPLIANCE_ABILITIES; i++)
+            {
+                Ability ability = new Ability();
+                dataModel.ApplianceAbilities.Add(ability);
+            }
+
             ViewBag.Skills = skills;
             ViewBag.SkillLevels = skillLevels;
             ViewBag.SkillAttributes = skillAttributes;
@@ -79,62 +86,56 @@ namespace OurWork.Controllers
         public ActionResult CreateAppliance(CreateApplianceModel data)
         {
             //Adding new appliance
-            JobAppliances newAppliance = new JobAppliances();
+            JobAppliance newAppliance = new JobAppliance();
 
             newAppliance.Name = data.ApplianceData.Name;
             newAppliance.Comment = data.ApplianceData.Comment;
             newAppliance.UserId = GetCurrentUser().UserId;
 
             if (!_appRepository.Create(newAppliance))
-            {
-                //TODO create error page and show it if operation fails
-                return RedirectToAction("Index");
+            {                
+                return RedirectToAction("/Error/Index");
             }
 
             _appRepository.Save();
 
             int newAppId = newAppliance.Id;
 
-            //Adding abilities for new appliance
-            Abilities newAbilities = new Abilities();
+            //Adding abilities and ability set for new appliance
+            foreach (Ability ability in data.ApplianceAbilities)
+            {                
+                Ability newAbilities = new Ability();
 
-            newAbilities.SkillId = data.ApplianceAbilities.SkillId;
-            newAbilities.SkillLevelId = data.ApplianceAbilities.SkillLevelId;
+                newAbilities.SkillId = ability.SkillId;
+                newAbilities.SkillLevelId = ability.SkillLevelId;
+                
+                if (!_abilRepository.Create(newAbilities))
+                {
+                    return RedirectToAction("/Error/Index");
+                }
 
-            //TODO Implement adding multiple abilities!!!
-            if (!_abilRepository.Create(newAbilities))
-            {
-                //TODO create error page and show it if operation fails
-                return RedirectToAction("Index");
+                _abilRepository.Save();
+
+                int newAbilId = newAbilities.Id;
+                
+                AbilitySet newAbilitySet = new AbilitySet();
+
+                newAbilitySet.ApplianceId = newAppliance.Id;
+                newAbilitySet.AbilitiesId = newAbilities.Id;
+
+                if (!_abilSetRepository.Create(newAbilitySet))
+                {
+                    return RedirectToAction("/Error/Index");
+                }
+
+                _abilSetRepository.Save();
             }
-
-            _abilRepository.Save();
-
-            int newAbilId = newAbilities.Id;
-
-            //Adding linking AbilitySet
-            AbilitySets newAbilitySet = new AbilitySets();
-
-            newAbilitySet.ApplianceId = newAppliance.Id;
-            newAbilitySet.AbilitiesId = newAbilities.Id;
-
-            if (!_abilSetRepository.Create(newAbilitySet))
-            {
-                //TODO create error page and show it if operation fails
-                return RedirectToAction("Index");
-            }
-
-            _abilSetRepository.Save();
 
             return RedirectToAction("Index");
         }
 
         private UserProfile GetCurrentUser()
         {
-            //TODO Why this throws an exception?!
-            //int currentUserId = WebSecurity.GetUserId(User.Identity.Name);
-            //return _userRepository.GetById(currentUserId);
-
             return _userRepository.GetByName(User.Identity.Name);
         }
     }

@@ -7,8 +7,13 @@ namespace OurWork.Models
 {
     public class CreateApplianceModel
     {
-        public JobAppliances ApplianceData { get; set; }
+        public CreateApplianceModel()
+        {
+            ApplianceAbilities = new List<Ability>();
+        }
 
-        public Abilities ApplianceAbilities { get; set; }
+        public JobAppliance ApplianceData { get; set; }
+
+        public List<Ability> ApplianceAbilities { get; set; }
     }
 }

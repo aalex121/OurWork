@@ -7,7 +7,7 @@ using System.Web;
 
 namespace OurWork.Repository
 {
-    public class JobAppliancesRepository : IRepository<JobAppliances>
+    public class JobAppliancesRepository : IRepository<JobAppliance>
     {
         private readonly DataContext _context;
 
@@ -18,22 +18,22 @@ namespace OurWork.Repository
 
         #region Basic CRUD operations
 
-        public IEnumerable<JobAppliances> GetAll()
+        public IEnumerable<JobAppliance> GetAll()
         {
             return _context.JobApplicances;
         }
 
-        public JobAppliances GetById(int id)
+        public JobAppliance GetById(int id)
         {
             return _context.JobApplicances.Find(id);
         }
 
-        public IEnumerable<JobAppliances> GetByUserId(int userId)
+        public IEnumerable<JobAppliance> GetByUserId(int userId)
         {
             return _context.JobApplicances.Where(a => a.UserId == userId).ToList();
         }
 
-        public bool Create(JobAppliances record)
+        public bool Create(JobAppliance record)
         {
             if (!CheckUser(record))
             {
@@ -45,7 +45,7 @@ namespace OurWork.Repository
             return true;
         }
 
-        public bool Update(JobAppliances user)
+        public bool Update(JobAppliance user)
         {
             if (!CheckUser(user))
             {
@@ -59,7 +59,7 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            JobAppliances user = _context.JobApplicances.Find(id);
+            JobAppliance user = _context.JobApplicances.Find(id);
 
             if (user != null)
             {
@@ -74,7 +74,7 @@ namespace OurWork.Repository
 
         #endregion
 
-        private bool CheckUser(JobAppliances appliance)
+        private bool CheckUser(JobAppliance appliance)
         {
             return appliance.UserId >= 1 && _context.UserProfiles.Find(appliance.UserId) != null;
         }

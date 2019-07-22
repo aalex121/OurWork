@@ -9,7 +9,7 @@ using System;
 namespace OurWork.Models
 {
     [Table("JobOffers")]
-    public class JobOffers
+    public class JobOffer
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -27,7 +27,7 @@ namespace OurWork.Models
 
         public int ProfessionId { get; set; }
 
-        public Professions Profession { get; set; }        
+        public Profession Profession { get; set; }        
 
         //public ApplicantCharacteristics Reqirements { get; set; }        
     }

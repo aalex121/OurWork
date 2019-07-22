@@ -12,7 +12,7 @@ namespace OurWork.Controllers
 {
     public class JobOffersController : ApiController
     {
-        private IRepository<JobOffers> _repository;
+        private IRepository<JobOffer> _repository;
 
         public JobOffersController()
         {
@@ -22,19 +22,19 @@ namespace OurWork.Controllers
         #region Basic CRUD operations
 
         // GET api/usertest
-        public IEnumerable<JobOffers> Get()
+        public IEnumerable<JobOffer> Get()
         {
             return _repository.GetAll();
         }
 
         // GET api/usertest/5
-        public JobOffers Get(int id)
+        public JobOffer Get(int id)
         {
             return _repository.GetById(id);
         }
 
         // POST api/usertest
-        public void Post(JobOffers newOffer)
+        public void Post(JobOffer newOffer)
         {
             if (_repository.Create(newOffer))
             {
@@ -43,7 +43,7 @@ namespace OurWork.Controllers
         }
 
         // PUT api/usertest
-        public void Put(JobOffers offer)
+        public void Put(JobOffer offer)
         {
             if (_repository.Update(offer))
             {

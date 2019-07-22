@@ -13,32 +13,36 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-
-    <fieldset>
-        <ol>
-            <li>
-                <h3>Appliance Info</h3>
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ApplianceData.Name)
-                @Html.TextBoxFor(m => m.ApplianceData.Name)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ApplianceData.Comment)
-                @Html.TextAreaFor(m => m.ApplianceData.Comment)
-            </li>
-            <li>
-                <h3>Select Abilities</h3>
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ApplianceAbilities.SkillId)
-                @Html.DropDownListFor(m => m.ApplianceAbilities.SkillId, skills)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ApplianceAbilities.SkillLevelId)
-                @Html.DropDownListFor(m => m.ApplianceAbilities.SkillLevelId, skillLevels)
-            </li>            
-        </ol>
-        <input type="submit" value="Create" />
-    </fieldset>
+    
+    <h3>Appliance Info</h3>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.ApplianceData.Name)
+        @Html.TextBoxFor(m => m.ApplianceData.Name, htmlAttributes: new { @class = "form-control" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.ApplianceData.Comment)
+        @Html.TextAreaFor(m => m.ApplianceData.Comment, htmlAttributes: new { @class = "form-control" })
+    </div>
+            
+    <h3>Select Abilities</h3>
+    
+    for (int i = 0; i < Model.ApplianceAbilities.Count; i++)
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.ApplianceAbilities[i].SkillId)
+            @Html.DropDownListFor(m => m.ApplianceAbilities[i].SkillId,
+                skills, htmlAttributes: new { @class = "form-control" })
+        </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(m => m.ApplianceAbilities[i].SkillLevelId)
+            @Html.DropDownListFor(m => m.ApplianceAbilities[i].SkillLevelId,
+                skillLevels, htmlAttributes: new { @class = "form-control" })
+        </div>
+    }         
+        
+    <input type="submit" value="Create" />
+    
 }

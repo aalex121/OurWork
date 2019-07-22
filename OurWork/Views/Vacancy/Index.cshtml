@@ -1,0 +1,56 @@
+﻿@using OurWork.Models
+@model IEnumerable<JobOffer>
+@{
+    ViewBag.Title = "Index";    
+}
+
+<h2>All your Vacancies</h2>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Details
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (JobOffer v in Model)
+            {
+                <tr>
+                    <td>
+                        @v.OfferName
+                    </td>
+                    <td>
+                        @Html.ActionLink("See Details...", "Vacancy", "Vacancy",
+                            routeValues: new { id = v.Id },
+                            htmlAttributes: new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="row bottom-section" >
+    <div class="col-lg-6">
+        @Html.ActionLink("Add Vacancy", "Index", "CreateVacancy",
+            routeValues: null,
+            htmlAttributes: new { @class = "btn btn-success" })
+    </div>
+    <div class="col-lg-6">
+        <li>
+            <h5>Watch all available vacancies</h5>
+            You can consider all available vacancies.
+            @Html.ActionLink("Watch all vacancies", "AllVacancies", "Vacancy",
+                routeValues: null,
+                htmlAttributes: new { @class = "text-primary" })            
+        </li>
+    </div>
+</div>
+

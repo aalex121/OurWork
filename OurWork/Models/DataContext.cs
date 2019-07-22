@@ -15,18 +15,18 @@ namespace OurWork.Models
         {            
         }
 
-        public DbSet<Abilities> Abilities { get; set; }
-        public DbSet<AbilitySets> AblitySets { get; set; }
+        public DbSet<Ability> Abilities { get; set; }
+        public DbSet<AbilitySet> AblitySets { get; set; }
         public DbSet<ApplicantCharacteristics> ApplicantCharacteristics { get; set; }
-        public DbSet<EducationTypes> EducationTypes { get; set; }
-        public DbSet<JobAppliances> JobApplicances { get; set; }
-        public DbSet<JobOffers> JobOffers { get; set; }
-        public DbSet<Professions> Professions { get; set; }
-        public DbSet<SkillAttributes> SkillAttributes { get; set; }
-        public DbSet<SkillLevels> SkillLevels { get; set; }
-        public DbSet<Skills> Skills { get; set; }
+        public DbSet<EducationType> EducationTypes { get; set; }
+        public DbSet<JobAppliance> JobApplicances { get; set; }
+        public DbSet<JobOffer> JobOffers { get; set; }
+        public DbSet<Profession> Professions { get; set; }
+        public DbSet<SkillAttribute> SkillAttributes { get; set; }
+        public DbSet<SkillLevel> SkillLevels { get; set; }
+        public DbSet<Skill> Skills { get; set; }
         public DbSet<UserData> UserData { get; set; }
-        public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }        
     }
 

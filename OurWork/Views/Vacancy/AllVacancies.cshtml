@@ -1,0 +1,26 @@
+﻿@using OurWork.Models
+@model IEnumerable<JobOffer>
+@{
+    ViewBag.Title = "AllVacanciesView";
+}
+
+<h2>AllVacanciesView</h2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Vacancies</h2>
+
+@if (Model != null)
+{
+    foreach (JobOffer v in Model)
+    {
+        <div>
+            <p class="vacancy1">
+                @v.OfferName
+            </p>
+            <a href="/vacancy/vacancy/@v.Id">Details</a>
+        </div>
+    }
+}

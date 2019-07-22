@@ -7,7 +7,7 @@ using System.Web;
 
 namespace OurWork.Repository
 {
-    public class AbilitySetsRepository : IRepository<AbilitySets>
+    public class AbilitySetsRepository : IRepository<AbilitySet>
     {
         private readonly DataContext _context;
 
@@ -16,17 +16,17 @@ namespace OurWork.Repository
             _context = new DataContext();
         }
         
-        public IEnumerable<AbilitySets> GetAll()
+        public IEnumerable<AbilitySet> GetAll()
         {
             return _context.AblitySets;
         }
 
-        public AbilitySets GetById(int id)
+        public AbilitySet GetById(int id)
         {
             return _context.AblitySets.Find(id);
         }
 
-        public bool Create(AbilitySets newRecord)
+        public bool Create(AbilitySet newRecord)
         {
             if (!CheckAppliance(newRecord))
             {
@@ -38,7 +38,7 @@ namespace OurWork.Repository
             return true;
         }
 
-        public bool Update(AbilitySets record)
+        public bool Update(AbilitySet record)
         {
             //if (!CheckAppliance(record))
             //{
@@ -52,7 +52,7 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            AbilitySets current = _context.AblitySets.Find(id);
+            AbilitySet current = _context.AblitySets.Find(id);
 
             if (current != null)
             {
@@ -65,7 +65,7 @@ namespace OurWork.Repository
             _context.SaveChanges();
         }
 
-        private bool CheckAppliance(AbilitySets record)
+        private bool CheckAppliance(AbilitySet record)
         {
             if (record.ApplianceId == 0)
             {

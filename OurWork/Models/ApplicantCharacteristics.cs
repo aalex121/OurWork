@@ -17,7 +17,7 @@ namespace OurWork.Models
 
         public int EducationId { get; set; }
 
-        public EducationTypes Education { get; set; }
+        public EducationType Education { get; set; }
          
         public int WorkExpirience { get; set; }
 

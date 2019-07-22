@@ -7,7 +7,7 @@ using System.Web;
 
 namespace OurWork.Repository
 {
-    public class EducationTypesRepository : IRepository<EducationTypes>
+    public class EducationTypesRepository : IRepository<EducationType>
     {
         private readonly DataContext _context;
 
@@ -18,17 +18,17 @@ namespace OurWork.Repository
 
         #region Basic CRUD operations
 
-        public IEnumerable<EducationTypes> GetAll()
+        public IEnumerable<EducationType> GetAll()
         {
             return _context.EducationTypes;
         }
 
-        public EducationTypes GetById(int id)
+        public EducationType GetById(int id)
         {
             return _context.EducationTypes.Find(id);
         }
 
-        public bool Create(EducationTypes newUser)
+        public bool Create(EducationType newUser)
         {
             if (!CheckEducationTypesId(newUser))
             {
@@ -40,7 +40,7 @@ namespace OurWork.Repository
             return true;
         }
 
-        public bool Update(EducationTypes user)
+        public bool Update(EducationType user)
         {
             if (!CheckEducationTypesId(user))
             {
@@ -54,7 +54,7 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            EducationTypes user = _context.EducationTypes.Find(id);
+            EducationType user = _context.EducationTypes.Find(id);
 
             if (user != null)
             {
@@ -69,7 +69,7 @@ namespace OurWork.Repository
 
         #endregion
 
-        private bool CheckEducationTypesId(EducationTypes user)
+        private bool CheckEducationTypesId(EducationType user)
         {
             if (user.Id < 1 || _context.EducationTypes.Find(user.Id) == null)
             {

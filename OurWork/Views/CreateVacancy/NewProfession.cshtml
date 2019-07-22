@@ -1,0 +1,37 @@
+﻿@using OurWork.Models
+@model OurWork.Models.CreateProfessionModel
+
+@{
+    ViewBag.Title = "NewProfession";
+    List<SelectListItem> skills = ViewBag.Skills;
+    List<SelectListItem> skillLevels = ViewBag.SkillLevels;
+}
+
+<h2>NewProfession</h2>
+
+@using (Html.BeginForm("CreateProfession", "CreateVacancy"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+        <h3>Profession Info</h3>
+    
+        <div class="form-group">
+            @Html.LabelFor(m => m.ProfessionData.Name)
+            @Html.TextBoxFor(m => m.ProfessionData.Name, htmlAttributes: new { @class = "form-control" })
+        </div>
+    
+        <h3>Select Abilities</h3>
+    
+        <div class="form-group">
+            @Html.LabelFor(m => m.SkillId)
+            @Html.DropDownListFor(m => m.SkillId, skills, htmlAttributes: new { @class = "form-control" })
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(m => m.SkillLevelId)
+            @Html.DropDownListFor(m => m.SkillLevelId, skillLevels, htmlAttributes: new { @class = "form-control" })
+        </div>  
+            
+        <input type="submit" value="Create" />    
+}

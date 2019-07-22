@@ -24,7 +24,7 @@ a {
 
     a:link, a:visited,
     a:active, a:hover {
-        color: #333;
+        /*color: #333*/;
     }
 
     a:hover {
@@ -115,7 +115,8 @@ h5, h6 {
     }
 
 header .content-wrapper {
-    padding-top: 20px; 
+    padding-top: 20px;
+    padding-bottom: 20px; 
 }
 
 footer {
@@ -753,4 +754,22 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+}
+
+/*Custom CSS*/
+
+.main-header {
+    background: linear-gradient(135deg, blue, blue 60%, yellow);
+}
+
+.home-top {
+    
+}
+
+.central-section {
+    padding-top: 20px;
+}
+
+.bottom-section {
+    margin-top: 20px;
 }

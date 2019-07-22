@@ -8,13 +8,19 @@ using System.Web.Security;
 
 namespace OurWork.Models
 {
-    [Table("UserRoles")]
-    public class UserRoles
+    [Table("AbilitySets")]
+    public class AbilitySet
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string RoleName { get; set; }
-        public List<UserProfile> Users { get; set; }
+
+        public int AbilitiesId { get; set; }
+        
+        public Ability Abilities { get; set; }
+
+        public int ApplianceId { get; set; }        
+
+        //public Professions Profession { get; set; }
     }
 }

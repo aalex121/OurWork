@@ -8,7 +8,7 @@ using OurWork.Models;
 
 namespace OurWork.Repository
 {
-    public class JobOffersRepository : IRepository<JobOffers>
+    public class JobOffersRepository : IRepository<JobOffer>
     {
         private readonly DataContext _context;
 
@@ -19,17 +19,22 @@ namespace OurWork.Repository
 
         #region Basic CRUD operations
 
-        public IEnumerable<JobOffers> GetAll()
+        public IEnumerable<JobOffer> GetAll()
         {
             return _context.JobOffers;
         }
 
-        public JobOffers GetById(int id)
+        public JobOffer GetById(int id)
         {
             return _context.JobOffers.Find(id);
         }
 
-        public bool Create(JobOffers newOffer)
+        public IEnumerable<JobOffer> GetByUserId(int id)
+        {
+            return _context.JobOffers.Where(o => o.UserId == id).ToList();
+        }
+
+        public bool Create(JobOffer newOffer)
         {
             if (!CheckUserAndProfession(newOffer))
             {
@@ -41,7 +46,7 @@ namespace OurWork.Repository
             return true;
         }
 
-        public bool Update(JobOffers offer)
+        public bool Update(JobOffer offer)
         {
             if (!CheckUserAndProfession(offer))
             {
@@ -55,7 +60,7 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            JobOffers offer = _context.JobOffers.Find(id);
+            JobOffer offer = _context.JobOffers.Find(id);
 
             if (offer != null)
             {
@@ -70,7 +75,7 @@ namespace OurWork.Repository
 
         #endregion
 
-        private bool CheckUserAndProfession(JobOffers offer)
+        private bool CheckUserAndProfession(JobOffer offer)
         {
             bool fOk = offer.UserId >= 1 && _context.UserProfiles.Find(offer.UserId) != null;
 

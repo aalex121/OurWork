@@ -7,7 +7,7 @@ using System.Web;
 
 namespace OurWork.Repository
 {
-    public class AbilitiesRepository : IRepository<Abilities>
+    public class AbilitiesRepository : IRepository<Ability>
     {
         private readonly DataContext _context;
 
@@ -16,17 +16,17 @@ namespace OurWork.Repository
             _context = new DataContext();
         }
         
-        public IEnumerable<Abilities> GetAll()
+        public IEnumerable<Ability> GetAll()
         {
             return _context.Abilities;
         }
 
-        public Abilities GetById(int id)
+        public Ability GetById(int id)
         {
             return _context.Abilities.Find(id);
         }
 
-        public bool Create(Abilities newRecord)
+        public bool Create(Ability newRecord)
         {
             if (!CheckSkills(newRecord))
             {
@@ -38,7 +38,7 @@ namespace OurWork.Repository
             return true;
         }
 
-        public bool Update(Abilities record)
+        public bool Update(Ability record)
         {
             if (!CheckSkills(record))
             {
@@ -52,7 +52,7 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            Abilities current = _context.Abilities.Find(id);
+            Ability current = _context.Abilities.Find(id);
 
             if (current != null)
             {
@@ -65,7 +65,7 @@ namespace OurWork.Repository
             _context.SaveChanges();
         }
 
-        private bool CheckSkills(Abilities record)
+        private bool CheckSkills(Ability record)
         {
             bool fOk = record.SkillId >= 1 && record.SkillLevelId >= 1;
             

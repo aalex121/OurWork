@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "_ApplicantHomePartial";
+}
+
+<div class="col-lg-12">
+    <h2>Welcome, @User.Identity.Name !</h2>
+</div>
+
+<div class="col-lg-6">
+    @Html.ActionLink("Find me a Job!", "Index", "Search",
+        routeValues: null,
+        htmlAttributes: new { @class = "btn btn-primary btn-large" })
+</div>
+
+<div class="col-lg-6">
+    @Html.ActionLink("My Appliances", "Index", "Appliance",
+        routeValues: null,
+        htmlAttributes: new { @class = "btn btn-success btn-large" })
+</div>

@@ -8,20 +8,21 @@ using System.Web.Security;
 
 namespace OurWork.Models
 {
-    [Table("Professions")]
-    public class Professions
+    [Table("Abilities")]
+    public class Ability
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public int SkillId { get; set; }
+        
+        public Skill Skill { get; set; }
 
-        public int AbilitySetId { get; set; }
+        public int SkillLevelId { get; set; }
+        
+        public SkillLevel SkillLevel { get; set; }
 
-        //[Required]
-        //public AbilitySets AbilitySet { get; set; }
-
-        public List<JobOffers> JobOffers { get; set; }
+        public List<AbilitySet> AbilitySets { get; set; }
     }
 }

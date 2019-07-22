@@ -7,7 +7,7 @@ using System.Web;
 
 namespace OurWork.Repository
 {
-    public class SkillsRepository : IRepository<Skills>
+    public class SkillsRepository : IRepository<Skill>
     {
         private readonly DataContext _context;
 
@@ -18,23 +18,23 @@ namespace OurWork.Repository
 
         #region Basic CRUD operations
 
-        public IEnumerable<Skills> GetAll()
+        public IEnumerable<Skill> GetAll()
         {
             return _context.Skills;
         }
 
-        public Skills GetById(int id)
+        public Skill GetById(int id)
         {
             return _context.Skills.Find(id);
         }
 
-        public bool Create(Skills record)
+        public bool Create(Skill record)
         {
             _context.Skills.Add(record);
             return true;
         }
 
-        public bool Update(Skills record)
+        public bool Update(Skill record)
         {
             _context.Entry(record).State = EntityState.Modified;
             return true;
@@ -42,7 +42,7 @@ namespace OurWork.Repository
 
         public void Delete(int id)
         {
-            Skills record = _context.Skills.Find(id);
+            Skill record = _context.Skills.Find(id);
 
             if (record != null)
             {
@@ -57,7 +57,7 @@ namespace OurWork.Repository
 
         #endregion
 
-        public IEnumerable<SkillLevels> GetSkillLevels()
+        public IEnumerable<SkillLevel> GetSkillLevels()
         {
             return _context.SkillLevels;
         }

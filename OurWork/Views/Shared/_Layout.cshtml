@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    //string logoPath = Server.MapPath("~/Images/");
+}
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -9,12 +12,17 @@
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+        <header class="container-fluid main-header">
+            <div class="content-wrapper d-flex justify-content-around">
+                <div class="p-2">
+                    <p class="site-title">
+                        <a href="/Home/Index">
+                            <img src="~/Content/Images/hwlogo3.png" />
+                        </a>
+                    </p>
+                    
                 </div>
-                <div class="float-right">
+                <div class="p-2">
                     <section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>
